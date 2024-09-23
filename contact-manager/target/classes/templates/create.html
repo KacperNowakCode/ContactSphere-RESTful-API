@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Contact</title>
+    <!-- Użycie lokalnego pliku Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Create New Contact</h1>
-<form th:action="@{/contacts/create}" th:object="${contact}" method="post">
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" id="name" th:field="*{name}" />
-        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    </div>
-    <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" />
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-    </div>
-    <div>
-        <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" />
-        <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
-    </div>
-    <button type="submit">Save</button>
-    <a href="/contacts">Cancel</a>
-</form>
+<div class="container mt-5">
+    <h1>Create New Contact</h1>
+    <form th:action="@{/contacts/create}" th:object="${contact}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+        <div class="form-group">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
+            <div class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="/contacts" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+<!-- Użycie lokalnego pliku Bootstrap JS -->
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
 </body>
 </html>
