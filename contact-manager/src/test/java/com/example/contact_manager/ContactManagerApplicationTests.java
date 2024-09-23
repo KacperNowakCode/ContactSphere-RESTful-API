@@ -36,7 +36,7 @@ class ContactManagerApplicationTests {
 	void getAllContacts() {
 		Contact contact1 = new Contact();
 		contact1.setId(1L);
-		contact1.setName("John Doe");
+		contact1.setName("John Dog");
 		contact1.setEmail("john@example.com");
 		contact1.setPhoneNumber("1234567890");
 
