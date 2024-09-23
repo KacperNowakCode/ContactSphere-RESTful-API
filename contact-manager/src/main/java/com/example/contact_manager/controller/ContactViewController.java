@@ -2,11 +2,15 @@ package com.example.contact_manager.controller;
 
 import com.example.contact_manager.model.Contact;
 import com.example.contact_manager.service.ContactService;
+import com.example.contact_manager.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -15,6 +19,9 @@ public class ContactViewController {
 
     @Autowired
     private ContactService contactService;
+
+    @Autowired
+    private EmailService emailService;
 
     // Display the list of contacts
     @GetMapping
@@ -65,5 +72,34 @@ public class ContactViewController {
     public String deleteContact(@PathVariable Long id) {
         contactService.deleteContact(id);
         return "redirect:/contacts"; // Redirects to the contacts list page after deletion
+
+
     }
+    // Show the form to send group email
+    @GetMapping("/send-group-email")
+    public String showGroupEmailPage(Model model) {
+        List<Contact> contacts = contactService.getAllContacts();
+        model.addAttribute("contacts", contacts);
+        return "group-email"; // Renders the group-email.html Thymeleaf template
+    }
+
+    // Handle form submission for sending group email
+    @PostMapping("/send-group-email")
+    public String sendGroupEmail(
+            @RequestParam List<Long> contactIds,  // IDs of selected contacts
+            @RequestParam String subject,
+            @RequestParam String messageBody) {
+
+        // Fetch emails of selected contacts
+        List<String> emailAddresses = contactService.getAllContacts().stream()
+                .filter(contact -> contactIds.contains(contact.getId()))
+                .map(Contact::getEmail)
+                .collect(Collectors.toList());
+
+        // Send the group email using the email service
+        emailService.sendGroupEmail(emailAddresses, subject, messageBody);
+
+        return "redirect:/contacts/send-group-email?success"; // Redirect back with success message
+    }
+
 }

@@ -7,8 +7,13 @@ import java.util.List;
 import java.util.Optional;
 import com.example.contact_manager.repository.ContactRepository;
 import com.example.contact_manager.model.Contact;
+
+
 @Service
 public class ContactService {
+
+
+
 
     @Autowired
     private ContactRepository contactRepository;
@@ -28,5 +33,6 @@ public class ContactService {
         public void deleteContact(Long id) {
             contactRepository.deleteById(id);
         }
+
     }
 
