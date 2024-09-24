@@ -2,31 +2,43 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Contact Manager</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Contact List</h1>
-<a href="/contacts/create">Add New Contact</a>
-<table th:border="1">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone Number</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="contact : ${contacts}">
-        <td th:text="${contact.name}">Name</td>
-        <td th:text="${contact.email}">Email</td>
-        <td th:text="${contact.phoneNumber}">Phone Number</td>
-        <td>
-            <a th:href="@{/contacts/edit/{id}(id=${contact.id})}">Edit</a> |
-            <a th:href="@{/contacts/delete/{id}(id=${contact.id})}"
-               onclick="return confirm('Are you sure you want to delete this contact?');">Delete</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <h1 class="text-center my-4">Contact List</h1>
+
+    <div class="text-center mb-4">
+        <a href="/contacts/create" class="btn btn-primary">Add New Contact</a>
+        <a href="/contacts/send-group-email" class="btn btn-secondary ml-2">Send Group Email</a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered text-center">
+            <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="contact : ${contacts}">
+                <td th:text="${contact.name}">Name</td>
+                <td th:text="${contact.email}">Email</td>
+                <td th:text="${contact.phoneNumber}">Phone Number</td>
+                <td>
+                    <a th:href="@{/contacts/edit/{id}(id=${contact.id})}" class="btn btn-sm btn-warning">Edit</a>
+                    <a th:href="@{/contacts/delete/{id}(id=${contact.id})}" class="btn btn-sm btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this contact?');">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

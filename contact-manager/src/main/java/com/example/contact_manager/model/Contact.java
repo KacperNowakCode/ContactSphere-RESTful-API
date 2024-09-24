@@ -2,10 +2,6 @@ package com.example.contact_manager.model;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-
-import java.util.Set;
-
 @Entity
 @Table(name = "contacts")
 public class Contact {
@@ -22,7 +18,6 @@ public class Contact {
     private String phoneNumber;
 
 
-    // Getters and Setters
 
     public Long getId(){
         return id;

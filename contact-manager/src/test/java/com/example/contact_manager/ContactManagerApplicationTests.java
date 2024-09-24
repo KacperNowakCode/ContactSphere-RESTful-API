@@ -9,11 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -25,26 +23,26 @@ class ContactManagerApplicationTests {
 	@InjectMocks
 	private ContactService contactService;
 
-	private AutoCloseable closeable; // Add this line to manage mocks properly
+	private AutoCloseable closeable;
 
 	@BeforeEach
 	void setUp() {
-		closeable = MockitoAnnotations.openMocks(this); // Properly handle AutoCloseable
+		closeable = MockitoAnnotations.openMocks(this);
 	}
 
 	@Test
 	void getAllContacts() {
 		Contact contact1 = new Contact();
 		contact1.setId(1L);
-		contact1.setName("John Doe");
-		contact1.setEmail("john@example.com");
-		contact1.setPhoneNumber("1234567890");
+		contact1.setName("Jan Kowalski");
+		contact1.setEmail("jankowal@example.com");
+		contact1.setPhoneNumber("123 456 789");
 
 		Contact contact2 = new Contact();
 		contact2.setId(2L);
-		contact2.setName("Jane Smith");
-		contact2.setEmail("jane@example.com");
-		contact2.setPhoneNumber("0987654321");
+		contact2.setName("Adam Brzozowski");
+		contact2.setEmail("adam@example.com");
+		contact2.setPhoneNumber("987654321");
 
 		List<Contact> contacts = Arrays.asList(contact1, contact2);
 		when(contactRepository.findAll()).thenReturn(contacts);
@@ -52,7 +50,7 @@ class ContactManagerApplicationTests {
 		List<Contact> result = contactService.getAllContacts();
 
 		assertEquals(2, result.size());
-		assertEquals("John Doe", result.get(0).getName());
+		assertEquals("Jan Kowalski", result.get(0).getName());
 		verify(contactRepository, times(1)).findAll();
 	}
 
@@ -60,27 +58,27 @@ class ContactManagerApplicationTests {
 	void getContactById() {
 		Contact contact = new Contact();
 		contact.setId(1L);
-		contact.setName("John Doe");
+		contact.setName("Jan Kowalski");
 
 		when(contactRepository.findById(1L)).thenReturn(Optional.of(contact));
 
 		Optional<Contact> result = contactService.getContactById(1L);
 
 		assertTrue(result.isPresent());
-		assertEquals("John Doe", result.get().getName());
+		assertEquals("Jan Kowalski", result.get().getName());
 		verify(contactRepository, times(1)).findById(1L);
 	}
 
 	@Test
 	void saveContact() {
 		Contact contact = new Contact();
-		contact.setName("John Doe");
+		contact.setName("Jan Kowalski");
 
 		when(contactRepository.save(contact)).thenReturn(contact);
 
 		Contact result = contactService.saveContact(contact);
 
-		assertEquals("John Doe", result.getName());
+		assertEquals("Jan Kowalski", result.getName());
 		verify(contactRepository, times(1)).save(contact);
 	}
 
@@ -97,8 +95,7 @@ class ContactManagerApplicationTests {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		closeable.close(); // Ensure resources are properly closed
-
+		closeable.close();
 
 	}
 
@@ -116,9 +113,8 @@ class ContactManagerApplicationTests {
 	void saveContactWithMissingName() {
 		Contact contact = new Contact();
 		contact.setEmail("missingname@example.com");
-		contact.setPhoneNumber("1234567890");
+		contact.setPhoneNumber("123456789");
 
-		// Assuming your service should throw an exception for invalid data
 		when(contactRepository.save(contact)).thenThrow(new IllegalArgumentException("Name is required"));
 
 		Exception exception = assertThrows(IllegalArgumentException.class, () -> contactService.saveContact(contact));

@@ -1,6 +1,5 @@
 package com.example.contact_manager.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -8,12 +7,8 @@ import java.util.Optional;
 import com.example.contact_manager.repository.ContactRepository;
 import com.example.contact_manager.model.Contact;
 
-
 @Service
 public class ContactService {
-
-
-
 
     @Autowired
     private ContactRepository contactRepository;
