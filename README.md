@@ -28,7 +28,8 @@ making it an useful everyday tool.
 ## Installation and Setup:
 
 -git clone https://github.com/KacperNowakCode/ContactSphere-RESTful-API  
--Configure your MySQL database in application.properties.  
+-Configure your MySQL database in application.properties  
+-Configure e-mail data in application.properties  
 -cd contactsphere-restful-api  
 -cd contact-manager  
 -sudo mvn clean install  
